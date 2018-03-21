@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.qssq666.radiogroupdemo.MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
+        >
+
+        <cn.qssq666.radiogroupx.RadioGroupX
+            android:id="@+id/radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            app:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/radio_btn_1"
+                style="@style/buttom_strip_radiobutton"
+                android:layout_weight="1"
+                android:checked="false"
+                android:drawableTop="@drawable/selector_btn_tab1"
+                android:text="头条"
+                android:textSize="12sp" />
+
+            <RadioButton
+
+                android:id="@+id/radio_btn_2"
+                style="@style/buttom_strip_radiobutton"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/selector_btn_tab2"
+                android:text="营销课" />
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="5dp"
+
+                android:layout_gravity="center_horizontal|bottom"
+                android:drawableTop="@drawable/tab_add_selected"
+                android:gravity="center"
+                android:text="有料"
+                android:textColor="@color/colorThemeBlack"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="invisible" />
+
+            <cn.qssq666.radiogroupx.BadgeRadioButton
+                android:id="@+id/radio_btn_3"
+                style="@style/buttom_strip_radiobuttonx"
+                app:badgeRadius="8dp"
+                app:badgetext=""
+                app:badgetextColor="@android:color/white"
+                app:badgetextSize="5dp"
+                app:buttontextColor="@color/colorThemeBlack"
+                app:buttontextSize="@dimen/text_size_12"
+                app:drawableTop="@drawable/selector_btn_tab3"
+                app:minBadgeSize="2dp"
+                app:onlypointer="true"
+                app:text="谁看我" />
+
+            <RadioButton
+                android:id="@+id/radio_btn_4"
+                style="@style/buttom_strip_radiobutton"
+                android:drawableTop="@drawable/selector_btn_tab4"
+
+                android:text="我的" />
+
+        </cn.qssq666.radiogroupx.RadioGroupX>
+
+        <TextView
+            android:id="@+id/btn_call_boommenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:drawableTop="@drawable/tab_add_selected"
+            android:gravity="center"
+            android:paddingBottom="2dp"
+            android:text="有料"
+            android:textColor="@color/colorThemeBlack"
+            android:textSize="@dimen/text_size_12" />
+
+    </FrameLayout>
+</LinearLayout>
+

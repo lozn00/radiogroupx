@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~
+  ~                     .::::.
+  ~                   .::::::::.
+  ~                  :::::::::::  by qssq666@foxmail.com
+  ~              ..:::::::::::'
+  ~            '::::::::::::'
+  ~              .::::::::::
+  ~         '::::::::::::::..
+  ~              ..::::::::::::.
+  ~            ``::::::::::::::::
+  ~             ::::``:::::::::'        .:::.
+  ~            ::::'   ':::::'       .::::::::.
+  ~          .::::'      ::::     .:::::::'::::.
+  ~         .:::'       :::::  .:::::::::' ':::::.
+  ~        .::'        :::::.:::::::::'      ':::::.
+  ~       .::'         ::::::::::::::'         ``::::.
+  ~   ...:::           ::::::::::::'              ``::.
+  ~  ```` ':.          ':::::::::'                  ::::..
+  ~                     '.:::::'                    ':'````..
+  ~
+  -->
+
+<resources>
+
+    <attr name="textSize" format="reference|dimension" />
+    <attr name="textColor" format="reference|color" />
+    <attr name="text" format="string" localization="suggested" />
+    <attr name="hint" format="string" />
+    <attr name="maxLines" format="integer" min="0" />
+    <attr name="ellipsize">
+        <enum name="none" value="0" />
+        <enum name="start" value="1" />
+        <enum name="middle" value="2" />
+        <enum name="end" value="3" />
+        <enum name="marquee" value="4" />
+    </attr>
+    <declare-styleable name="QuViewPagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsIndicatorPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+    <attr name="buttongravity">
+        <flag name="top" value="0x30" />
+        <!-- Push object to the bottom of its container, not changing its size. -->
+        <flag name="bottom" value="0x50" />
+        <!-- Push object to the left of its container, not changing its size. -->
+        <flag name="left" value="0x03" />
+        <!-- Push object to the right of its container, not changing its size. -->
+        <flag name="right" value="0x05" />
+        <!-- Place object in the vertical center of its container, not changing its size. -->
+        <flag name="center_vertical" value="0x10" />
+        <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill_vertical" value="0x70" />
+        <!-- Place object in the horizontal center of its container, not changing its size. -->
+        <flag name="center_horizontal" value="0x01" />
+        <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
+        <flag name="fill_horizontal" value="0x07" />
+        <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
+        <flag name="center" value="0x11" />
+        <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
+        <flag name="fill" value="0x77" />
+        <!-- Additional option that can be set to have the top and/or bottom edges of
+             the child clipped to its container's bounds.
+             The clip will be based on the vertical gravity: a top gravity will clip the bottom
+             edge, a bottom gravity will clip the top edge, and neither will clip both edges. -->
+        <flag name="clip_vertical" value="0x80" />
+        <!-- Additional option that can be set to have the left and/or right edges of
+             the child clipped to its container's bounds.
+             The clip will be based on the horizontal gravity: a left gravity will clip the right
+             edge, a right gravity will clip the left edge, and neither will clip both edges. -->
+        <flag name="clip_horizontal" value="0x08" />
+        <!-- Push object to the beginning of its container, not changing its size. -->
+        <flag name="start" value="0x00800003" />
+        <!-- Push object to the end of its container, not changing its size. -->
+        <flag name="end" value="0x00800005" />
+    </attr>
+    <!-- Text color. -->
+    <!-- Color of the text selection highlight. -->
+    <attr name="textColorHighlight" />
+    <!-- Color of the hint text. -->
+    <attr name="textColorHint" />
+    <!-- Base text color, typeface, size, and style. -->
+    <attr name="textAppearance" />
+    <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
+    <!-- Sets the horizontal scaling factor for the text. -->
+    <attr name="textScaleX" format="float" />
+    <!-- Typeface (normal, sans, serif, monospace) for the text. -->
+    <attr name="typeface" />
+    <!-- Style (bold, italic, bolditalic) for the text. -->
+    <attr name="textStyle" />
+    <!-- Font family (named by string) for the text. -->
+    <!-- Text color for links. -->
+    <attr name="textColorLink" />
+
+    <declare-styleable name="MoreTextStyle">
+        <attr name="textSize" />
+        <attr name="textColor" />
+        <attr name="maxLines" />
+        <attr name="text" />
+
+
+    </declare-styleable>
+
+
+    <declare-styleable name="BadgeRadioButton">
+        <attr name="buttontextColor" format="reference|color" />
+        <attr name="text" />
+        <attr name="onlypointer" format="boolean" />
+        <attr name="badgetext" format="string" />
+        <attr name="badgetextColor" format="reference|color" />
+        <attr name="badgetextSize" format="reference|dimension" />
+        <attr name="buttontextSize" format="reference|dimension" />
+        <attr name="buttongravity" />
+        <attr name="enabled" format="boolean" />
+        <attr name="minBadgeSize" format="reference|dimension" />
+        <attr name="badgeRadius" format="reference|dimension" />
+        <attr name="badgePadding" format="reference|dimension" />
+        <attr name="ellipsize" />
+        <!-- The drawable to be drawn above the text. -->
+        <attr name="drawableTop" format="reference|color" />
+        <!-- The drawable to be drawn below the text. -->
+        <attr name="drawableBottom" format="reference|color" />
+        <!-- The drawable to be drawn to the left of the text. -->
+        <attr name="drawableLeft" format="reference|color" />
+        <!-- The drawable to be drawn to the right of the text. -->
+        <attr name="drawableRight" format="reference|color" />
+        <!-- The drawable to be drawn to the start of the text. -->
+        <attr name="drawableStart" format="reference|color" />
+        <!-- The drawable to be drawn to the end of the text. -->
+        <attr name="drawableEnd" format="reference|color" />
+        <!-- The padding between the drawables and the text. -->
+        <attr name="drawablePadding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RadioGroupX">
+        <!-- The id of the child radio button that should be checked by default
+             within this radio group. -->
+        <attr name="checkedButton" format="integer" />
+        <!-- Should the radio group be a column or a row?  Use "horizontal"
+             for a row, "vertical" for a column.  The default is
+             vertical. -->
+        <attr name="orientation" />
+
+    </declare-styleable>
+    <attr name="orientation">
+        <!-- Defines an horizontal widget. -->
+        <enum name="horizontal" value="0" />
+        <!-- Defines a vertical widget. -->
+        <enum name="vertical" value="1" />
+    </attr>
+
+</resources>
