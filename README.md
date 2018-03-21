@@ -1,6 +1,31 @@
-# radiogroupx
+# radiogroupx实现tabhost+小红点
 无需大改动让RadioGroup里的view支持小红点数字或纯小红点。还是原来的配方，还是原来的味道
-简书地址 https://www.jianshu.com/p/dfd06a955a05 有图有真相
+
+### 如何直接用Android Studio在线接入
+第一步在项目根目录build.gralde中添加如下代码 
+```groovy
+
+
+	allprojects {
+		repositories {
+
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+```
+第二步 在主模块中build.gradle添加如下代码
+```
+	dependencies {
+	        compile 'com.github.qssq:radiogroupx:v1.0'
+	}
+
+
+```
+### 如何用Eclipse 或者直接下载模块源代码到android studio
+https://github.com/qssq/radiogroupx 直接打包下载源码 把radiogroupx模块弄进去
+### 具体用法
+
 java代码非常精简所以我说是原来的配方原来的味道:
 ```
        RadioGroupX groupX = ((RadioGroupX) findViewById(R.id.radiogroup));
@@ -120,3 +145,9 @@ xml布局:
 
     </FrameLayout>
 ```
+
+### 什么样的效果？可以实现什么样的需求？能否扩展
+可以实现纯小红点，也可以实现带数字小红点,扩展性比原生更强.只需要实现``` Checkable ```或者 ```instanceof RadioGroupX.OnCheckedChangeWidgetListener```就可以实现扩展
+
+### 效果图
+简书地址 https://www.jianshu.com/p/dfd06a955a05 有图有真相
