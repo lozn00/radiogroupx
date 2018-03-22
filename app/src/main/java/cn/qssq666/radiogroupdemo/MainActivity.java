@@ -2,6 +2,7 @@ package cn.qssq666.radiogroupdemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Checkable;
 import android.widget.RadioButton;
 
 import cn.qssq666.radiogroupx.BadgeRadioButton;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroupX.OnChe
         setContentView(R.layout.activity_main);
         RadioGroupX groupX = ((RadioGroupX) findViewById(R.id.radiogroup));
         groupX.setOnCheckedChangeListener(this);
-        ((RadioButton) groupX.getChildAt(0)).setChecked(true);
+        ((Checkable) groupX.getChildAt(0)).setChecked(true);
         BadgeRadioButton childAt = (BadgeRadioButton) groupX.getChildAt(3);
 //        childAt.hide();//隐藏或者显示 支持模式和数字点模式!
         //child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener

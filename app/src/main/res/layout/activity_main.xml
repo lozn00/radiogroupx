@@ -30,14 +30,17 @@
             app:orientation="horizontal">
 
 
-            <RadioButton
+            <cn.qssq666.radiogroupx.DrawableTopRadioButton
                 android:id="@+id/radio_btn_1"
                 style="@style/buttom_strip_radiobutton"
                 android:layout_weight="1"
                 android:checked="false"
-                android:drawableTop="@drawable/selector_btn_tab1"
-                android:text="头条"
-                android:textSize="12sp" />
+                app:text="头条"
+                android:textSize="12sp"
+                app:badgeRadius="8dp"
+                app:buttontextColor="@color/colorThemeBlack"
+                app:buttontextSize="@dimen/text_size_12"
+                app:drawableTop="@drawable/selector_btn_tab3" />
 
             <RadioButton
 
