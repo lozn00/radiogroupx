@@ -109,6 +109,7 @@ public class BadgeRadioButton extends RelativeLayout implements Checkable, Radio
          */
         radioButton = new RadioButton(context, attrs, defStyleAttr);
 
+
         //配置多少就有多少.的tyearray
         TypedArray typedArrayTextView = theme.obtainStyledAttributes(
                 attrs, R.styleable.BadgeRadioButton, defStyleAttr, 0);

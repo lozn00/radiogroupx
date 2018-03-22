@@ -38,9 +38,10 @@
                 app:text="头条"
                 android:textSize="12sp"
                 app:badgeRadius="8dp"
+                app:drawableRight="@drawable/selector_btn_tab2"
                 app:buttontextColor="@color/colorThemeBlack"
                 app:buttontextSize="@dimen/text_size_12"
-                app:drawableTop="@drawable/selector_btn_tab3" />
+                app:drawableTop="@drawable/selector_btn_tab1" />
 
             <RadioButton
 

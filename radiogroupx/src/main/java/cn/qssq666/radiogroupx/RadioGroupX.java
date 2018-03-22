@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
@@ -32,6 +33,7 @@ import java.lang.reflect.Method;
 import java.util.Random;
 
 public class RadioGroupX extends LinearLayout {
+    private static final String TAG = "RadioGroupX";
     // holds the checked id; the selection is empty by default
     private int mCheckedId = -1;
     // tracks children radio buttons checked state
@@ -156,6 +158,8 @@ public class RadioGroupX extends LinearLayout {
         View checkedView = findViewById(viewId);
         if (checkedView != null && checkedView instanceof Checkable) {
             ((Checkable) checkedView).setChecked(checked);
+        }else{
+            Log.e(TAG,"setCheckedStateForView fail ,is not imp Checkable");
         }
     }
 
@@ -319,7 +323,7 @@ public class RadioGroupX extends LinearLayout {
             }
             mProtectFromCheckedChange = false;
 
-            int id = buttonView.getId();
+            int id = buttonView.getId();//这里比较曹丹.由于必须继承CompoundButton导致
             setCheckedId(id);
         }
     }
@@ -337,6 +341,8 @@ public class RadioGroupX extends LinearLayout {
          * {@inheritDoc}
          */
         public void onChildViewAdded(View parent, View child) {
+            //TODO 这里需要改动，由于多了一层包裹
+
             if ((child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
 //            if (parent == RadioGroupX.this && (child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
                 int id = child.getId();
@@ -351,11 +357,15 @@ public class RadioGroupX extends LinearLayout {
                 }
                 setRadioButtonOnCheckedChangeWidgetListener(child,
                         mChildOnCheckedChangeListener);
+            }else{
+                Log.e(TAG,"setRadioButtonOnCheckedChangeWidgetListener fail ,is not imp Checkable");
             }
 
             if (mOnHierarchyChangeListener != null) {
                 mOnHierarchyChangeListener.onChildViewAdded(parent, child);
             }
+
+
         }
 
         /**
@@ -365,6 +375,8 @@ public class RadioGroupX extends LinearLayout {
             if ((child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
 //            if (parent == RadioGroupX.this && (child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
                 setRadioButtonOnCheckedChangeWidgetListener(child, null);
+            }else{
+                Log.e(TAG,"setRadioButtonOnCheckedChangeWidgetListener to null fail ,is not imp Checkable");
             }
 
             if (mOnHierarchyChangeListener != null) {
@@ -374,6 +386,12 @@ public class RadioGroupX extends LinearLayout {
     }
 
 
+    /**
+     * 通过反射调用{@link CompoundButton.OnCheckedChangeListener}
+     * @param view
+     * @param listener
+     * @return
+     */
     public static boolean setRadioButtonOnCheckedChangeWidgetListener(View view, CompoundButton.OnCheckedChangeListener listener) {
         Class aClass = view.getClass();
         if (view instanceof OnCheckedChangeWidgetListener) {
@@ -392,13 +410,13 @@ public class RadioGroupX extends LinearLayout {
                     setOnCheckedChangeWidgetListener.invoke(view, listener);
                     return true;
                 } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                     aClass = aClass.getSuperclass();
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                     aClass = aClass.getSuperclass();
                 } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                     aClass = aClass.getSuperclass();
                 }
             }
