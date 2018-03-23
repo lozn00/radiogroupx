@@ -46,13 +46,21 @@ public class DrawableTopRadioButton extends RelativeLayout implements Checkable,
     private TextView badgePointView;
     private int minBadgeSize;
     private int badgeRadius;
-    private ProxyWrapRadioButtonInner radioButtonWrap;
 
-    public RadioCheckableImageView getDrawableTopView() {
-        return drawableTopView;
+    public ProxyWrapRadioButtonInner getRadioButtonWrap() {
+        return radioButtonWrap;
     }
 
-    private RadioCheckableImageView drawableTopView;
+
+
+
+    private ProxyWrapRadioButtonInner radioButtonWrap;
+
+    public RadioCheckableImageView getTopImageView() {
+        return mTopImageView;
+    }
+
+    private RadioCheckableImageView mTopImageView;
 
     public DrawableTopRadioButton(Context context) {
         super(context);
@@ -79,6 +87,9 @@ public class DrawableTopRadioButton extends RelativeLayout implements Checkable,
     public boolean isNotNeedDight() {
         return notNeedDight;
     }
+
+
+
 
     public void setNotNeedDight(boolean notNeedDight) {
         this.notNeedDight = notNeedDight;
@@ -244,29 +255,29 @@ public class DrawableTopRadioButton extends RelativeLayout implements Checkable,
 
 //        radioButton.setId();
 
-        drawableTopView = new RadioCheckableImageView(context);
+        mTopImageView = new RadioCheckableImageView(context);
 
-//        drawableTopView.setPadding(0, 0, 0, drawablePadding);
-        drawableTopView.setId(R.id.radio_button_drawTop);
+//        mTopImageView.setPadding(0, 0, 0, drawablePadding);
+        mTopImageView.setId(R.id.radio_button_drawTop);
         if (drawableTop != null) {
-            drawableTopView.setImageDrawable(drawableTop);
+            mTopImageView.setImageDrawable(drawableTop);
 
         }
 
         //添加imageview
-        RelativeLayout.LayoutParams layoutParamsWrap = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParamsWrap = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParamsWrap.addRule(CENTER_HORIZONTAL);
-        radioButtonWrap.addView(drawableTopView, layoutParamsWrap);
+        radioButtonWrap.addView(mTopImageView, layoutParamsWrap);
 
         //添加button
-        layoutParamsWrap = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParamsWrap = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParamsWrap.topMargin = drawablePadding;
         layoutParamsWrap.addRule(CENTER_HORIZONTAL);
-        layoutParamsWrap.addRule(BELOW, drawableTopView.getId());
+        layoutParamsWrap.addRule(BELOW, mTopImageView.getId());
         radioButtonWrap.addView(radioButton, layoutParamsWrap);
         //添加内部维护
         radioButtonWrap.setInnerCheckAble(radioButton);
-        radioButtonWrap.setInnerImageView(drawableTopView);
+        radioButtonWrap.setInnerImageView(mTopImageView);
         //添加badgeview
         LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -311,8 +322,13 @@ public class DrawableTopRadioButton extends RelativeLayout implements Checkable,
 
         //修复焦点 和点击事件代理
         MyRadioButtonProxyClickListener l = new MyRadioButtonProxyClickListener();
-        drawableTopView.setOnClickListener(l);
+        mTopImageView.setOnClickListener(l);
         badgePointView.setOnClickListener(l);
+        onInitFinish(context,attrs);
+
+    }
+
+    protected void onInitFinish(Context context, AttributeSet attrs) {
 
     }
 
@@ -372,7 +388,7 @@ public class DrawableTopRadioButton extends RelativeLayout implements Checkable,
     @Override
     public void setChecked(boolean checked) {
         radioButton.setChecked(checked);
-        drawableTopView.setChecked(checked);
+        mTopImageView.setChecked(checked);
 
        /* if (mOnCheckedChangeWidgetListener != null) {
             mOnCheckedChangeWidgetListener.onCheckedChanged(this, mChecked);

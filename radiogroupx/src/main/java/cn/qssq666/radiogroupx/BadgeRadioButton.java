@@ -33,6 +33,15 @@ import android.widget.TextView;
 public class BadgeRadioButton extends RelativeLayout implements Checkable, RadioGroupX.OnCheckedChangeWidgetListener {
 
     private static final String TAG = "BadgeRadioButton";
+
+    public RadioButton getRadioButton() {
+        return radioButton;
+    }
+
+    public void setRadioButton(RadioButton radioButton) {
+        this.radioButton = radioButton;
+    }
+
     private RadioButton radioButton;
     private boolean isShown;
     private TextView badgePointView;
@@ -268,6 +277,12 @@ public class BadgeRadioButton extends RelativeLayout implements Checkable, Radio
 
 
         addView(badgePointView, layoutParams);
+        onInitFinish();
+
+    }
+
+    protected void onInitFinish() {
+
 
     }
 

@@ -12,6 +12,9 @@ package cn.qssq666.radiogroupx;/*
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ *
+ * 本项目大部分代码基于官方源代码改写，部分else逻辑基于博客Jaylong的代码改写,另外还有一部分代码 instanceOf 是本人自己改写，可以说是一个超级增强版本
  */
 
 import android.content.Context;
@@ -26,7 +29,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Checkable;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-
+import android.widget.RadioButton;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -49,10 +52,26 @@ public class RadioGroupX extends LinearLayout {
         init(context, null);
     }
 
+    /**
+     * 查找radioButton控件
+     */
+    public RadioButton findRadioButton(ViewGroup group) {
+        RadioButton resBtn = null;
+        int len = group.getChildCount();
+        for (int i = 0; i < len; i++) {
+            if (group.getChildAt(i) instanceof RadioButton) {
+                resBtn = (RadioButton) group.getChildAt(i);
+            } else if (group.getChildAt(i) instanceof ViewGroup) {
+                findRadioButton((ViewGroup) group.getChildAt(i));
+            }
+        }
+        return resBtn;
+    }
+
     public RadioGroupX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init(context,attrs);
+        init(context, attrs);
     }
 
     public RadioGroupX(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -60,7 +79,7 @@ public class RadioGroupX extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.RadioGroupX,0,0);
+        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.RadioGroupX, 0, 0);
 
 
         int value = attributes.getResourceId(R.styleable.RadioGroupX_checkedButton, View.NO_ID);
@@ -105,7 +124,7 @@ public class RadioGroupX extends LinearLayout {
 
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        if (child instanceof Checkable && child instanceof View) {
+        if (child instanceof Checkable && child instanceof View) {//修改实例判断
             final Checkable button = (Checkable) child;
             if (button.isChecked()) {
                 mProtectFromCheckedChange = true;
@@ -116,7 +135,18 @@ public class RadioGroupX extends LinearLayout {
 
                 setCheckedId(((View) button).getId());
             }
-        }
+        } else if (child instanceof ViewGroup) {  //这里是我添加的代码
+            final RadioButton button = findRadioButton((ViewGroup) child);
+            if (button.isChecked()) {
+                mProtectFromCheckedChange = true;
+                if (mCheckedId != -1) {
+                    setCheckedStateForView(mCheckedId, false);
+                }
+                mProtectFromCheckedChange = false;
+                setCheckedId(button.getId());
+            }
+        }//这里我添加的代码结束
+
 
         super.addView(child, index, params);
     }
@@ -158,8 +188,8 @@ public class RadioGroupX extends LinearLayout {
         View checkedView = findViewById(viewId);
         if (checkedView != null && checkedView instanceof Checkable) {
             ((Checkable) checkedView).setChecked(checked);
-        }else{
-            Log.e(TAG,"setCheckedStateForView fail ,is not imp Checkable");
+        } else {
+            Log.e(TAG, "setCheckedStateForView fail ,is not imp Checkable");
         }
     }
 
@@ -343,7 +373,7 @@ public class RadioGroupX extends LinearLayout {
         public void onChildViewAdded(View parent, View child) {
             //TODO 这里需要改动，由于多了一层包裹
 
-            if ((child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
+            if ((child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {//这里我修改的代码
 //            if (parent == RadioGroupX.this && (child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
                 int id = child.getId();
                 // generates an id if it's missing
@@ -357,8 +387,21 @@ public class RadioGroupX extends LinearLayout {
                 }
                 setRadioButtonOnCheckedChangeWidgetListener(child,
                         mChildOnCheckedChangeListener);
-            }else{
-                Log.e(TAG,"setRadioButtonOnCheckedChangeWidgetListener fail ,is not imp Checkable");
+            } else if (parent == RadioGroupX.this && child instanceof ViewGroup) {  //这里是我添加的代码else if
+                RadioButton btn = findRadioButton((ViewGroup) child);
+                if (btn == null) {
+                    Log.e(TAG, "setRadioButtonOnCheckedChangeWidgetListener fail ,from child is not imp Checkable");
+                    return;
+                }
+                int id = btn.getId();
+                // generates an id if it's missing
+                if (id == View.NO_ID) {
+                    id = btn.hashCode();
+                    btn.setId(id);
+                }
+                btn.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+            } else {
+                Log.e(TAG, "setRadioButtonOnCheckedChangeWidgetListener fail ,is not imp Checkable");
             }
 
             if (mOnHierarchyChangeListener != null) {
@@ -375,8 +418,13 @@ public class RadioGroupX extends LinearLayout {
             if ((child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
 //            if (parent == RadioGroupX.this && (child instanceof Checkable || child instanceof RadioGroupX.OnCheckedChangeWidgetListener)) {
                 setRadioButtonOnCheckedChangeWidgetListener(child, null);
-            }else{
-                Log.e(TAG,"setRadioButtonOnCheckedChangeWidgetListener to null fail ,is not imp Checkable");
+            } else if (parent == RadioGroupX.this && child instanceof ViewGroup) {//我添加的代码else
+                RadioButton radioButton = findRadioButton((ViewGroup) child);
+                if (radioButton != null) {
+                    radioButton.setOnCheckedChangeListener(null);
+                }
+            } else {
+                Log.e(TAG, "setRadioButtonOnCheckedChangeWidgetListener to null fail ,is not imp Checkable");
             }
 
             if (mOnHierarchyChangeListener != null) {
@@ -388,6 +436,7 @@ public class RadioGroupX extends LinearLayout {
 
     /**
      * 通过反射调用{@link CompoundButton.OnCheckedChangeListener}
+     *
      * @param view
      * @param listener
      * @return
